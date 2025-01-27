@@ -18,7 +18,7 @@ fun JustJogScaffold() {
             bottomBar = { JustJogBottomNavigation() },
             floatingActionButton = { /* future requirement */ }
         ) { padding ->
-            /* Content */gi
+            /* Content */
         }
     }
 }

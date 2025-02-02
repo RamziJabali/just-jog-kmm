@@ -13,7 +13,7 @@ kotlin {
             }
         }
     }
-    
+
     listOf(
         iosX64(),
         iosArm64(),
@@ -21,9 +21,12 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "shared"
-            isStatic = true
+            isStatic = false
+//            freeCompilerArgs += listOf("-Xbinary=bundleId=ramzi.eljabali.justjogkmm.shared")
+            freeCompilerArgs += listOf("-Xbinary=bundleId=justjogkmm.shared")
         }
     }
+
 
     sourceSets {
         commonMain.dependencies {
@@ -42,7 +45,7 @@ kotlin {
 
 android {
     namespace = "ramzi.eljabali.justjogkmm"
-    compileSdk = 34
+    compileSdk = 35
     defaultConfig {
         minSdk = 28
     }

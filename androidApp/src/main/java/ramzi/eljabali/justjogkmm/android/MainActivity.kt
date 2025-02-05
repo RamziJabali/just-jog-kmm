@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import ramzi.eljabali.justjogkmm.Greeting
 import ramzi.eljabali.justjogkmm.ui.GreetingView
+import ramzi.eljabali.justjogkmm.ui.components.JustJogScaffold
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,17 +21,9 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GreetingView(Greeting().greet())
+                    JustJogScaffold()
                 }
             }
         }
-    }
-}
-
-@Preview
-@Composable
-fun GreetingPreview() {
-    MyApplicationTheme {
-        GreetingView("Hello, Android!")
     }
 }

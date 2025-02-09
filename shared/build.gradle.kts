@@ -1,8 +1,9 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
-    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.composeCompiler)
     alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.kotlinxSerialization)
 }
 
 kotlin {
@@ -22,13 +23,19 @@ kotlin {
         it.binaries.framework {
             baseName = "shared"
             isStatic = false
-//            freeCompilerArgs += listOf("-Xbinary=bundleId=ramzi.eljabali.justjogkmm.shared")
             freeCompilerArgs += listOf("-Xbinary=bundleId=justjogkmm.shared")
         }
     }
 
 
     sourceSets {
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
+        }
+        androidMain.dependencies {
+            implementation(libs.ktor.client.okhttp)
+        }
+
         commonMain.dependencies {
             //put your multiplatform dependencies here
             implementation(compose.runtime)
@@ -36,7 +43,13 @@ kotlin {
             implementation(compose.material)
             @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
             implementation(compose.components.resources)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.json)
+            implementation(libs.kotlinx.coroutines.core)
         }
+
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
@@ -54,7 +67,4 @@ android {
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
-dependencies {
-    implementation(libs.androidx.foundation.layout.android)
-    implementation(libs.androidx.ui.tooling.preview.android)
-}
+

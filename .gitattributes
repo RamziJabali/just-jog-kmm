@@ -1,0 +1,3 @@
+shared.framework/Headers/*.h linguist-generated
+iosApp/**/shared.framework/Headers/*.h linguist-generated
+shared/build/** linguist-generated

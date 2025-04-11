@@ -1,4 +1,4 @@
-package ramzi.eljabali.justjogkmm.data.ktor.configuration
+package ramzi.eljabali.justjogkmm.data.network.api.configuration
 
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.HttpClientEngine

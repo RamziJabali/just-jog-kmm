@@ -12,7 +12,7 @@ import ramzi.eljabali.justjogkmm.util.NetworkError
 import ramzi.eljabali.justjogkmm.util.Result
 
 class MotivationalQuotesRepositoryImpl(
-    private val httpClient: HttpClient // TODO: Inject this
+    private val httpClient: HttpClient, // TODO: Inject this
 ) : MotivationalQuotesRepository {
     override suspend fun getRandomQuotes(): Result<MotivationalQuote, NetworkError> {
         val response = try {

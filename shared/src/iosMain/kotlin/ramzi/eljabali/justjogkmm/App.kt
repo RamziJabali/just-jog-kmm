@@ -4,5 +4,5 @@ import androidx.compose.ui.window.ComposeUIViewController
 import ramzi.eljabali.justjogkmm.ui.components.JustJogScaffold
 
 fun MainViewController() = ComposeUIViewController {
-    JustJogScaffold()
+    JustJogScaffold() // TODO change to App() composable
 }

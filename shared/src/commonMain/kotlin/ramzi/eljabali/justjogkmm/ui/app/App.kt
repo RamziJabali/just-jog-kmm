@@ -13,11 +13,12 @@ import androidx.compose.ui.Modifier
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import ramzi.eljabali.justjogkmm.data.network.api.model.MotivationalQuote
+import ramzi.eljabali.justjogkmm.data.repositories.implementations.MotivationalQuotesRepositoryImpl
 
 @Composable
-fun App(client: Moti){
+fun App(client: MotivationalQuotesRepositoryImpl) {
     var errorState by remember { mutableStateOf<String?>(null) }
-    var motivationalQuote by remember { mutableStateOf<MotivationalQuote?>(null)}
+    var motivationalQuote by remember { mutableStateOf<MotivationalQuote?>(null) }
     val scope: CoroutineScope = rememberCoroutineScope()
     Text(
         modifier = Modifier.fillMaxWidth(),
@@ -27,8 +28,19 @@ fun App(client: Moti){
     Button(
         onClick = {
             scope.launch {
+                when (val result = client.getRandomQuotes()) {
+                    is ramzi.eljabali.justjogkmm.util.Result.Error<*> -> {
+                        errorState = result.error.toString()
+                    }
 
+                    is ramzi.eljabali.justjogkmm.util.Result.Success<*> -> {
+                        errorState = null
+//                        motivationalQuote = result.data
+                    }
+                }
             }
         }
-    )
+    ) {
+        Text("Get Random Quote")
+    }
 }

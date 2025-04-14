@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.kotlinxSerialization)
+    alias(libs.plugins.ktlint)
 }
 
 kotlin {
@@ -27,7 +28,6 @@ kotlin {
         }
     }
 
-
     sourceSets {
         iosMain.dependencies {
             implementation(libs.ktor.client.darwin)
@@ -37,7 +37,7 @@ kotlin {
         }
 
         commonMain.dependencies {
-            //put your multiplatform dependencies here
+            // put your multiplatform dependencies here
             implementation(compose.runtime)
             implementation(compose.foundation)
             implementation(compose.material)
@@ -70,3 +70,21 @@ android {
     }
 }
 
+ktlint {
+    android.set(true)
+    verbose.set(true)
+    ignoreFailures.set(true)
+    disabledRules.set(setOf("package-name"))
+    filter {
+        include("src/**/*.kt")
+        exclude {
+            it.file.path.contains("build/generated")
+        }
+        exclude {
+            it.file.path.contains("commonResClass")
+        }
+        exclude {
+            it.file.path.contains("commonMainResourceAccessors")
+        }
+    }
+}

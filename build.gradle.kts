@@ -10,3 +10,23 @@ plugins {
     alias(libs.plugins.kotlinxSerialization) apply false
     alias(libs.plugins.ktlint) apply true
 }
+
+// In root build.gradle.kts
+subprojects {
+    if (name == "shared") {
+        apply(plugin = "org.jlleitschuh.gradle.ktlint")
+    }
+}
+
+ktlint {
+    android.set(true)
+    enableExperimentalRules.set(true)
+    outputToConsole.set(true)
+    verbose.set(true)
+    ignoreFailures = true
+    filter {
+        // Exclude the build and generated directories
+        exclude("**/build/**")
+        exclude("**/generated/**")
+    }
+}

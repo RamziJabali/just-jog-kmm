@@ -23,16 +23,15 @@ fun JustJogBottomNavigation() {
         backgroundColor = Color.DarkGray,
         contentColor = Color.White,
         elevation = BottomNavigationDefaults.Elevation
-    )
-    {
+    ) {
         JustJogBottomNavigationItems.entries.forEach { bottomNavItem ->
             BottomNavigationItem(
                 selected =
-                    if (bottomNavItem.index == bottomNavCurrentIndex) {
-                        true
-                    } else {
-                        false
-                    },
+                if (bottomNavItem.index == bottomNavCurrentIndex) {
+                    true
+                } else {
+                    false
+                },
                 onClick = {
                     bottomNavCurrentIndex = bottomNavItem.index
                 },

@@ -13,11 +13,11 @@ import kotlinx.serialization.json.Json
 
 fun createHttpClient(client: HttpClientEngine): HttpClient {
     return HttpClient(client) {
-        install(Logging){
+        install(Logging) {
             logger = Logger.DEFAULT
             level = LogLevel.ALL
         }
-        install(ContentNegotiation){
+        install(ContentNegotiation) {
             json(
                 json = Json {
                     prettyPrint = true

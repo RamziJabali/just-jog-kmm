@@ -3,10 +3,11 @@ package ramzi.eljabali.justjogkmm.data.repositories.implementations
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
+import io.ktor.client.request.headers
 import io.ktor.client.request.parameter
 import io.ktor.util.network.UnresolvedAddressException
 import kotlinx.serialization.SerializationException
-import ramzi.eljabali.justjogkmm.data.network.api.model.MotivationalQuote
+import ramzi.eljabali.justjogkmm.data.network.api.model.Quote
 import ramzi.eljabali.justjogkmm.domain.repository.MotivationalQuotesRepository
 import ramzi.eljabali.justjogkmm.util.NetworkError
 import ramzi.eljabali.justjogkmm.util.Result
@@ -14,9 +15,18 @@ import ramzi.eljabali.justjogkmm.util.Result
 class MotivationalQuotesRepositoryImpl(
     private val httpClient: HttpClient // TODO: Inject this
 ) : MotivationalQuotesRepository {
-    override suspend fun getRandomQuotes(): Result<MotivationalQuote, NetworkError> {
+    companion object {
+        private const val TAG = "MotivationalQuotesRepository"
+        private const val BASE_URL = "https://api.api-ninjas.com/v1/quotes"
+    }
+
+    override suspend fun getRandomQuotes(): Result<Quote, NetworkError> {
         val response = try {
-            httpClient.get(urlString = "https://thequoteshub.com/api/")
+            httpClient.get(urlString = BASE_URL) {
+                headers {
+                    append("X-Api-Key")
+                }
+            }
         } catch (e: UnresolvedAddressException) {
             return Result.Error(NetworkError.NO_INTERNET)
         } catch (e: SerializationException) {
@@ -25,9 +35,10 @@ class MotivationalQuotesRepositoryImpl(
 
         return when (response.status.value) {
             in 200..299 -> {
-                val motivationalQuote = Result.Success(response.body<MotivationalQuote>())
-                Result.Success(motivationalQuote.data)
+                val quote = Result.Success(response.body<Quote>())
+                Result.Success(quote.data)
             }
+
             401 -> Result.Error(NetworkError.UNAUTHORIZED)
             408 -> Result.Error(NetworkError.REQUEST_TIMEOUT)
             409 -> Result.Error(NetworkError.CONFLICT)
@@ -37,9 +48,9 @@ class MotivationalQuotesRepositoryImpl(
         }
     }
 
-    override suspend fun getSpecificQuotes(tag: String): Result<List<MotivationalQuote>, NetworkError> {
+    override suspend fun getSpecificQuotes(tag: String): Result<List<Quote>, NetworkError> {
         val response = try {
-            httpClient.get(urlString = "https://thequoteshub.com/api/") {
+            httpClient.get(urlString = BASE_URL) {
                 parameter("tags", tag)
             }
         } catch (e: UnresolvedAddressException) {
@@ -50,9 +61,10 @@ class MotivationalQuotesRepositoryImpl(
 
         return when (response.status.value) {
             in 200..299 -> {
-                val motivationalQuote = Result.Success(response.body<List<MotivationalQuote>>())
-                Result.Success(motivationalQuote.data)
+                val quote = Result.Success(response.body<List<Quote>>())
+                Result.Success(quote.data)
             }
+
             401 -> Result.Error(NetworkError.UNAUTHORIZED)
             408 -> Result.Error(NetworkError.REQUEST_TIMEOUT)
             409 -> Result.Error(NetworkError.CONFLICT)

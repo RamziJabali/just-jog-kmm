@@ -12,17 +12,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import ramzi.eljabali.justjogkmm.data.network.api.model.MotivationalQuote
+import ramzi.eljabali.justjogkmm.data.network.api.model.Quote
 import ramzi.eljabali.justjogkmm.data.repositories.implementations.MotivationalQuotesRepositoryImpl
 
 @Composable
 fun App(client: MotivationalQuotesRepositoryImpl) {
     var errorState by remember { mutableStateOf<String?>(null) }
-    var motivationalQuote by remember { mutableStateOf<MotivationalQuote?>(null) }
+    var quote by remember { mutableStateOf<Quote?>(null) }
     val scope: CoroutineScope = rememberCoroutineScope()
     Text(
         modifier = Modifier.fillMaxWidth(),
-        text = motivationalQuote?.quote ?: ""
+        text = quote?.quote ?: ""
     )
 
     Button(

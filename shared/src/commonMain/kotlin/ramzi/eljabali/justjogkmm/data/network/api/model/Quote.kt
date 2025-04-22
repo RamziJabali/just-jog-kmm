@@ -4,13 +4,11 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MotivationalQuote(
+data class Quote(
+    @SerialName("quote")
+    val quote: String?,
     @SerialName("author")
     val author: String?,
-    @SerialName("Quote")
-    val quote: String?,
-    @SerialName("total_quotes")
-    val totalQuotes: Int?,
     @SerialName("tags")
     val tags: List<String>?
 )

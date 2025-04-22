@@ -74,7 +74,6 @@ ktlint {
     android.set(true)
     verbose.set(true)
     ignoreFailures.set(true)
-    disabledRules.set(setOf("package-name"))
     filter {
         include("src/**/*.kt")
         exclude {

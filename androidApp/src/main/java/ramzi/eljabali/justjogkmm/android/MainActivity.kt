@@ -10,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import ramzi.eljabali.justjogkmm.data.network.api.configuration.KtorClientPlatform
 import ramzi.eljabali.justjogkmm.data.network.api.configuration.createHttpClient
+import ramzi.eljabali.justjogkmm.data.repositories.implementations.MotivationalQuotesRepositoryImpl
 import ramzi.eljabali.justjogkmm.ui.app.App
 
 class MainActivity : ComponentActivity() {
@@ -24,7 +25,9 @@ class MainActivity : ComponentActivity() {
 //                    JustJogScaffold()
                     App(
                         client = remember {
-                            createHttpClient(client = KtorClientPlatform().clientForPlatform)
+                            MotivationalQuotesRepositoryImpl(
+                                httpClient = createHttpClient(client = KtorClientPlatform().clientForPlatform)
+                            )
                         }
                     )
                 }

@@ -24,7 +24,10 @@ class MotivationalQuotesRepositoryImpl(
         val response = try {
             httpClient.get(urlString = BASE_URL) {
                 headers {
-                    append("X-Api-Key")
+                    append(
+                        "X-Api-Key",
+                        value = ""
+                    )
                 }
             }
         } catch (e: UnresolvedAddressException) {

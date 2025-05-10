@@ -1,3 +1,6 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
@@ -5,6 +8,20 @@ plugins {
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.kotlinxSerialization)
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.buildKonfig)
+}
+
+buildkonfig {
+    packageName = "ramzi.eljabali.justjogkmm.shared"
+
+    defaultConfigs {
+        val apiKey: String =
+            gradleLocalProperties(rootDir, providers).getProperty("QUOTES_API_KEY")
+
+        require(apiKey.isNotEmpty()) { }
+
+        buildConfigField(STRING, "QUOTES_API_KEY", apiKey)
+    }
 }
 
 kotlin {

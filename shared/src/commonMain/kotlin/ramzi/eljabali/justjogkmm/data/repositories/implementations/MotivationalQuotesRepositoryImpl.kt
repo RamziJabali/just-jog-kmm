@@ -9,6 +9,7 @@ import io.ktor.util.network.UnresolvedAddressException
 import kotlinx.serialization.SerializationException
 import ramzi.eljabali.justjogkmm.data.network.api.model.Quote
 import ramzi.eljabali.justjogkmm.domain.repository.MotivationalQuotesRepository
+import ramzi.eljabali.justjogkmm.shared.BuildKonfig
 import ramzi.eljabali.justjogkmm.util.NetworkError
 import ramzi.eljabali.justjogkmm.util.Result
 
@@ -26,7 +27,7 @@ class MotivationalQuotesRepositoryImpl(
                 headers {
                     append(
                         "X-Api-Key",
-                        value = ""
+                        value = BuildKonfig.QUOTES_API_KEY
                     )
                 }
             }
@@ -55,6 +56,12 @@ class MotivationalQuotesRepositoryImpl(
         val response = try {
             httpClient.get(urlString = BASE_URL) {
                 parameter("tags", tag)
+                headers {
+                    append(
+                        "X-Api-key",
+                        BuildKonfig.QUOTES_API_KEY
+                    )
+                }
             }
         } catch (e: UnresolvedAddressException) {
             return Result.Error(NetworkError.NO_INTERNET)

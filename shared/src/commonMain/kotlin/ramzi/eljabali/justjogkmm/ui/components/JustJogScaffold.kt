@@ -9,15 +9,16 @@ import androidx.compose.ui.Modifier
 
 @Composable
 fun JustJogScaffold() {
-    Box(
-        Modifier.navigationBarsPadding()
-    ) {
+    Box {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
-            bottomBar = { JustJogBottomNavigation() },
+            bottomBar = {
+                JustJogBottomNavigation(
+                    modifier = Modifier.navigationBarsPadding()
+                )
+            },
             floatingActionButton = { /* future requirement */ }
         ) { padding ->
-            /* Content */
         }
     }
 }

@@ -16,22 +16,18 @@ import org.jetbrains.compose.resources.painterResource
 import ramzi.eljabali.justjogkmm.ui.configuration.JustJogBottomNavigationItems
 
 @Composable
-fun JustJogBottomNavigation() {
+fun JustJogBottomNavigation(
+    modifier: Modifier = Modifier
+) {
     var bottomNavCurrentIndex: Int by remember { mutableStateOf(0) }
     BottomNavigation(
-        modifier = Modifier,
         backgroundColor = Color.DarkGray,
         contentColor = Color.White,
         elevation = BottomNavigationDefaults.Elevation
     ) {
         JustJogBottomNavigationItems.entries.forEach { bottomNavItem ->
             BottomNavigationItem(
-                selected =
-                if (bottomNavItem.index == bottomNavCurrentIndex) {
-                    true
-                } else {
-                    false
-                },
+                selected = bottomNavItem.index == bottomNavCurrentIndex,
                 onClick = {
                     bottomNavCurrentIndex = bottomNavItem.index
                 },
@@ -41,7 +37,7 @@ fun JustJogBottomNavigation() {
                         contentDescription = "${bottomNavItem.itemName} Icon"
                     )
                 },
-                modifier = Modifier,
+                modifier = modifier,
                 enabled = true,
                 label = { Text(bottomNavItem.itemName) },
                 alwaysShowLabel = false,

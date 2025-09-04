@@ -67,6 +67,8 @@ kotlin {
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.arrow.core)
             implementation(libs.arrow.fx.coroutines)
+            implementation(libs.androidx.navigation.compose)
+            implementation(libs.kotlinx.serialization.json)
             api(libs.koin.core)
             api(libs.koin.test)
         }

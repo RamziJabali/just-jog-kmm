@@ -7,20 +7,28 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
+import ramzi.eljabali.justjogkmm.ui.navigation.destinations.navigateToCalendarDestination
+import ramzi.eljabali.justjogkmm.ui.navigation.destinations.navigateToSettingsDestination
+import ramzi.eljabali.justjogkmm.ui.navigation.destinations.navigateToStatisticsDestination
+import ramzi.eljabali.justjogkmm.ui.navigation.navgraphs.JustJogNavHost
 
 @Composable
 fun JustJogScaffold() {
-    var navController = rememberNavController()
+    val navController = rememberNavController()
     Box {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
             bottomBar = {
                 JustJogBottomNavigation(
-                    modifier = Modifier.navigationBarsPadding()
+                    modifier = Modifier.navigationBarsPadding(),
+                    navigateToStaticsScreen = { navController.navigateToStatisticsDestination() },
+                    navigateToCalendarScreen = { navController.navigateToCalendarDestination() },
+                    navigateToSettingsScreen = { navController.navigateToSettingsDestination() }
                 )
             },
             floatingActionButton = { /* future requirement */ }
-        ) { padding ->
+        ) { innerPadding ->
+            JustJogNavHost(navController, innerPadding)
         }
     }
 }

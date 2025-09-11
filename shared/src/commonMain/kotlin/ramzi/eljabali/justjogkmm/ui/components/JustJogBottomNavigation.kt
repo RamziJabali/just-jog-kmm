@@ -14,9 +14,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import org.jetbrains.compose.resources.painterResource
 import ramzi.eljabali.justjogkmm.ui.configuration.JustJogBottomNavigationItems
+import ramzi.eljabali.justjogkmm.ui.configuration.JustJogBottomNavigationItems.CALENDAR_BOTTOM_NAV_ITEM
+import ramzi.eljabali.justjogkmm.ui.configuration.JustJogBottomNavigationItems.SETTINGS_BOTTOM_NAV_ITEM
+import ramzi.eljabali.justjogkmm.ui.configuration.JustJogBottomNavigationItems.STATISTICS_BOTTOM_NAV_ITEM
 
 @Composable
 fun JustJogBottomNavigation(
+    navigateToStaticsScreen: () -> Unit,
+    navigateToCalendarScreen: () -> Unit,
+    navigateToSettingsScreen: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     var bottomNavCurrentIndex: Int by remember { mutableStateOf(0) }
@@ -30,6 +36,11 @@ fun JustJogBottomNavigation(
                 selected = bottomNavItem.index == bottomNavCurrentIndex,
                 onClick = {
                     bottomNavCurrentIndex = bottomNavItem.index
+                    when (bottomNavItem) {
+                        STATISTICS_BOTTOM_NAV_ITEM -> navigateToStaticsScreen()
+                        CALENDAR_BOTTOM_NAV_ITEM -> navigateToCalendarScreen()
+                        SETTINGS_BOTTOM_NAV_ITEM -> navigateToSettingsScreen()
+                    }
                 },
                 icon = {
                     Icon(

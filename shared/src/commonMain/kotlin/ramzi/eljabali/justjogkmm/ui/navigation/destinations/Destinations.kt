@@ -5,11 +5,17 @@ import kotlinx.serialization.Serializable
 @Serializable object LoginScreen
 
 @Serializable object TabsGraph {
+    const val route = "tabs"
+
     @Serializable object StatisticsScreen {
-        val route = this.toString()
+        const val route = "tabs/statistics"
     }
 
-    @Serializable object CalendarScreen
+    @Serializable object CalendarScreen {
+        const val route = "tabs/calendar"
+    }
 
-    @Serializable object SettingsScreen
+    @Serializable object SettingsScreen {
+        const val route = "tabs/settings"
+    }
 }

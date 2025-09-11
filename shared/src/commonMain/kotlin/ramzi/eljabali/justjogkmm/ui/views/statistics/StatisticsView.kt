@@ -1,4 +1,4 @@
-package ramzi.eljabali.justjogkmm.ui.views
+package ramzi.eljabali.justjogkmm.ui.views.statistics
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
